@@ -6,8 +6,27 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 
+// Define interfaces for TypeScript
+interface StudySession {
+  id: string;
+  startTime: string | Date;
+  endTime: string | Date;
+  subjectId: string;
+  completed: boolean;
+}
+
+interface Subject {
+  id: string;
+  name: string;
+}
+
+interface AppContext {
+  studySessions: StudySession[];
+  subjects: Subject[];
+}
+
 const Schedule = () => {
-  const { studySessions, subjects } = useApp();
+  const { studySessions, subjects } = useApp() as AppContext;
 
   // Get today's sessions
   const today = new Date();
@@ -20,7 +39,10 @@ const Schedule = () => {
         sessionDate.getFullYear() === today.getFullYear()
       );
     })
-    .sort((a, b) => a.startTime.getTime() - b.startTime.getTime());
+    .sort(
+      (a, b) =>
+        new Date(a.startTime).getTime() - new Date(b.startTime).getTime()
+    );
 
   // Get weekly stats
   const weekStart = new Date();
@@ -213,7 +235,7 @@ const Schedule = () => {
                                       : "text-[#E0E0E0]"
                                   }`}
                                 >
-                                  {subject?.name}
+                                  {subject?.name || "Unknown Subject"}
                                 </h3>
                                 <Badge
                                   className={`text-[0.6rem] sm:text-xs py-0.5 sm:py-1 px-1 sm:px-1.5 ${
