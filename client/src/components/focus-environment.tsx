@@ -15,21 +15,21 @@ const FocusEnvironment = () => {
   const { subjects, topics, addStudySession } = useApp();
   const { toast } = useToast();
   const [selectedSubject, setSelectedSubject] = useState("");
-  const [selectedTopic, setSelectedTopic] = useState("");
+  const [selectedUnit, setSelectedUnit] = useState("");
   const [notes, setNotes] = useState("");
   const [mood, setMood] = useState<"motivated" | "neutral" | "tired">("neutral");
   const [studyDuration, setStudyDuration] = useState(25); // minutes
   const [savedSessions, setSavedSessions] = useState<Array<{
     id: string;
     subject: string;
-    topic?: string;
+    unit?: string;
     notes: string;
     duration: number;
     date: Date;
   }>>([]);
 
-  // Filter topics based on selected subject
-  const filteredTopics = topics.filter(
+  // Filter units based on selected subject
+  const filteredUnits = topics.filter(
     (topic) => topic.subjectId === selectedSubject
   );
 
@@ -53,20 +53,20 @@ const FocusEnvironment = () => {
     // Save the session
     addStudySession({
       subjectId: selectedSubject,
-      topicId: selectedTopic || undefined,
+      topicId: selectedUnit || undefined,
       startTime,
       endTime,
       completed: true,
     }).then((id) => {
       // Add to the local list for immediate display
       const subject = subjects.find(s => s.id === selectedSubject);
-      const topic = selectedTopic ? topics.find(t => t.id === selectedTopic) : undefined;
+      const unit = selectedUnit ? topics.find(t => t.id === selectedUnit) : undefined;
       
       setSavedSessions([
         {
           id,
           subject: subject?.name || "Unknown Subject",
-          topic: topic?.name,
+          unit: unit?.name,
           notes,
           duration: studyDuration,
           date: now,
@@ -129,19 +129,19 @@ const FocusEnvironment = () => {
 
             {selectedSubject && (
               <div className="space-y-2">
-                <Label htmlFor="topic">Topic (Optional)</Label>
+                <Label htmlFor="unit">Unit (Optional)</Label>
                 <Select 
-                  value={selectedTopic} 
-                  onValueChange={setSelectedTopic}
+                  value={selectedUnit} 
+                  onValueChange={setSelectedUnit}
                 >
-                  <SelectTrigger id="topic" className="bg-[#252525] border-[#333333] text-[#E0E0E0]">
-                    <SelectValue placeholder="Select a topic (optional)" />
+                  <SelectTrigger id="unit" className="bg-[#252525] border-[#333333] text-[#E0E0E0]">
+                    <SelectValue placeholder="Select a unit (optional)" />
                   </SelectTrigger>
                   <SelectContent className="bg-[#252525] border-[#333333] text-[#E0E0E0]">
                     <SelectItem value="general" className="focus:bg-[#333333] focus:text-[#E0E0E0]">
                       None (General Study)
                     </SelectItem>
-                    {filteredTopics.map((topic) => (
+                    {filteredUnits.map((topic) => (
                       <SelectItem key={topic.id} value={topic.id} className="focus:bg-[#333333] focus:text-[#E0E0E0]">
                         {topic.name}
                       </SelectItem>
@@ -250,10 +250,10 @@ const FocusEnvironment = () => {
                     <i className="ri-calendar-line mr-1"></i>
                     <span>{format(session.date, "MMM d, h:mm a")}</span>
                     
-                    {session.topic && (
+                    {session.unit && (
                       <>
                         <span className="mx-2">•</span>
-                        <span>{session.topic}</span>
+                        <span>{session.unit}</span>
                       </>
                     )}
                   </div>
