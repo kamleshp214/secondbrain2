@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Subject, Topic } from "../db/schema";
 import { formatDistanceToNow } from "date-fns";
 import ProgressBar from "./progress-bar";
-import TopicItem from "./topic-item";
+import UnitItem from "./unit-item";
 import { useApp } from "../context/app-context";
 
 interface SubjectCardProps {
@@ -65,7 +65,7 @@ const SubjectCard = ({ subject }: SubjectCardProps) => {
         <div className="mb-3">
           <div className="flex justify-between text-sm mb-1">
             <span className="overflow-hidden text-ellipsis whitespace-nowrap">
-              {completedCount}/{totalCount} topics completed
+              {completedCount}/{totalCount} units completed
             </span>
             <span className="font-medium">{Math.round(progress)}%</span>
           </div>
@@ -83,7 +83,7 @@ const SubjectCard = ({ subject }: SubjectCardProps) => {
             className="bg-[#333333] px-4 py-3 space-y-3"
           >
             {topics.map((topic: Topic) => (
-              <TopicItem key={topic.id} topic={topic} />
+              <UnitItem key={topic.id} topic={topic} />
             ))}
           </motion.div>
         )}

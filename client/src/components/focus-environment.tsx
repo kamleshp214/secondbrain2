@@ -138,7 +138,7 @@ const FocusEnvironment = () => {
                     <SelectValue placeholder="Select a topic (optional)" />
                   </SelectTrigger>
                   <SelectContent className="bg-[#252525] border-[#333333] text-[#E0E0E0]">
-                    <SelectItem value="" className="focus:bg-[#333333] focus:text-[#E0E0E0]">
+                    <SelectItem value="general" className="focus:bg-[#333333] focus:text-[#E0E0E0]">
                       None (General Study)
                     </SelectItem>
                     {filteredTopics.map((topic) => (
