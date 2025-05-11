@@ -1,0 +1,163 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 85% 60%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 0 85% 60%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 0 85% 60%;
+    --radius: 0.5rem;
+    
+    /* Chart colors */
+    --chart-1: 0 85% 60%;
+    --chart-2: 15 85% 60%;
+    --chart-3: 30 85% 60%;
+    --chart-4: 45 85% 60%;
+    --chart-5: 60 85% 60%;
+    
+    /* Sidebar colors */
+    --sidebar-background: 240 10% 3.9%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 0 85% 60%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 0 85% 60%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 0 85% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply antialiased bg-[#121212] text-[#E0E0E0] font-sans;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+}
+
+/* Neural network background pattern */
+.bg-neural {
+  position: relative;
+  overflow: hidden;
+}
+
+.bg-neural::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(#333333 1px, transparent 1px);
+  background-size: 30px 30px;
+  opacity: 0.05;
+  z-index: -1;
+}
+
+/* Animation utilities */
+.slide-in {
+  animation: slideIn 0.3s forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-fade-in {
+  animation: slideFadeIn 0.4s ease forwards;
+}
+
+@keyframes slideFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Calendar customizations */
+.rbc-calendar {
+  @apply bg-[#1E1E1E] rounded-xl overflow-hidden text-[#E0E0E0];
+}
+
+.rbc-toolbar {
+  @apply bg-[#1E1E1E] p-4;
+}
+
+.rbc-toolbar button {
+  @apply bg-[#333333] text-[#E0E0E0] border-none rounded-md;
+}
+
+.rbc-toolbar button.rbc-active, .rbc-toolbar button:hover {
+  @apply bg-[#FF5252] text-white;
+}
+
+.rbc-header {
+  @apply bg-[#252525] text-[#AAAAAA] py-2;
+}
+
+.rbc-today {
+  @apply bg-[#252525];
+}
+
+.rbc-event {
+  @apply bg-[#FF5252] border-[#D32F2F];
+}
+
+.rbc-off-range-bg {
+  @apply bg-[#1A1A1A];
+}
+
+.rbc-time-view, .rbc-day-bg, .rbc-month-view, .rbc-time-header-content, .rbc-month-row, .rbc-day-slot, .rbc-time-slot {
+  @apply border-[#333333];
+}
+
+/* Recharts customizations */
+.recharts-surface {
+  @apply overflow-visible;
+}
+
+.recharts-tooltip-wrapper {
+  @apply !opacity-100;
+}
+
+.recharts-default-tooltip {
+  @apply bg-[#252525] !border-[#333333] text-[#E0E0E0] shadow-lg;
+}
+
+.recharts-cartesian-axis-tick-value {
+  @apply fill-[#AAAAAA];
+}
