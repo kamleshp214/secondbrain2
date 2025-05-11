@@ -12,7 +12,6 @@ import { useState } from "react";
 const Settings = () => {
   const { toast } = useToast();
   const [theme, setTheme] = useState("dark");
-  const [calendarView, setCalendarView] = useState("week");
 
   // Animation variants
   const containerVariants = {
@@ -133,18 +132,17 @@ const Settings = () => {
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="calendar-view">Default Calendar View</Label>
+                <Label htmlFor="display-mode">Display Mode</Label>
                 <Select 
-                  value={calendarView} 
-                  onValueChange={setCalendarView}
+                  value="compact" 
+                  onValueChange={() => {}}
                 >
-                  <SelectTrigger id="calendar-view" className="bg-[#252525] border-[#333333] text-[#E0E0E0] w-full">
-                    <SelectValue placeholder="Select view" />
+                  <SelectTrigger id="display-mode" className="bg-[#252525] border-[#333333] text-[#E0E0E0] w-full">
+                    <SelectValue placeholder="Select mode" />
                   </SelectTrigger>
                   <SelectContent className="bg-[#252525] border-[#333333] text-[#E0E0E0]">
-                    <SelectItem value="day">Day</SelectItem>
-                    <SelectItem value="week">Week</SelectItem>
-                    <SelectItem value="month">Month</SelectItem>
+                    <SelectItem value="compact">Compact</SelectItem>
+                    <SelectItem value="comfortable">Comfortable</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -230,7 +228,31 @@ const Settings = () => {
               </div>
               <p className="text-sm text-[#AAAAAA]">A client-side study planning application</p>
               <p className="text-sm text-[#AAAAAA]">All data is stored locally on your device</p>
-              <p className="text-sm text-[#AAAAAA] mt-2">Built with React, Framer Motion, and Dexie.js</p>
+              <p className="text-sm text-[#AAAAAA] mt-2">Built with React, TypeScript, TailwindCSS, and Dexie.js</p>
+              
+              <div className="mt-4 pt-4 border-t border-[#333333]">
+                <h3 className="text-sm font-medium text-[#E0E0E0] mb-2">Connect with the Developer:</h3>
+                <div className="flex space-x-3">
+                  <a 
+                    href="https://github.com/yourusername" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center px-3 py-2 bg-[#252525] rounded-md text-[#E0E0E0] hover:bg-[#333333] transition-colors text-sm"
+                  >
+                    <i className="ri-github-fill mr-2"></i>
+                    GitHub
+                  </a>
+                  <a 
+                    href="https://linkedin.com/in/yourprofile" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center px-3 py-2 bg-[#252525] rounded-md text-[#E0E0E0] hover:bg-[#333333] transition-colors text-sm"
+                  >
+                    <i className="ri-linkedin-box-fill mr-2"></i>
+                    LinkedIn
+                  </a>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </motion.div>
