@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Topic } from "../db/schema";
 import { useApp } from "../context/app-context";
+import { Badge } from "@/components/ui/badge";
 
 interface TopicItemProps {
   topic: Topic;
@@ -25,8 +26,8 @@ const TopicItem = ({ topic }: TopicItemProps) => {
       transition: { duration: 0.2 } 
     },
     unchecked: { 
-      backgroundColor: "transparent", 
-      borderColor: "#333333",
+      backgroundColor: "rgba(0, 0, 0, 0)", 
+      borderColor: "#444444",
       transition: { duration: 0.2 } 
     }
   };
@@ -44,14 +45,19 @@ const TopicItem = ({ topic }: TopicItemProps) => {
     }
   };
 
+  // Get a shortened description
+  const shortDescription = topic.description.length > 80 
+    ? `${topic.description.substring(0, 80)}...` 
+    : topic.description;
+
   return (
     <motion.div
-      className="flex items-center p-2 rounded-lg hover:bg-[#252525] transition-colors"
+      className="flex items-start p-3 rounded-lg hover:bg-[#252525] transition-colors"
       whileHover={{ scale: 1.01 }}
       whileTap={{ scale: 0.99 }}
       layout
     >
-      <div className="mr-3 relative">
+      <div className="mr-3 relative mt-0.5">
         <motion.div
           className="w-6 h-6 rounded-md border-2 flex items-center justify-center"
           variants={checkboxVariants}
@@ -86,14 +92,38 @@ const TopicItem = ({ topic }: TopicItemProps) => {
         />
       </div>
       <div className="flex-1">
+        <div className="flex flex-wrap items-center gap-2 mb-1">
+          <motion.p
+            className={`text-sm font-medium ${isCompleted ? "text-[#AAAAAA] line-through" : "text-[#E0E0E0]"}`}
+            animate={{
+              color: isCompleted ? "#AAAAAA" : "#E0E0E0",
+            }}
+            transition={{ duration: 0.2 }}
+          >
+            {topic.name}
+          </motion.p>
+          
+          {topic.goalDate && (
+            <Badge variant="outline" className="text-xs bg-transparent border-[#444444] text-[#AAAAAA]">
+              Due: {new Date(topic.goalDate).toLocaleDateString('en-US', {month: 'short', day: 'numeric'})}
+            </Badge>
+          )}
+          
+          {isCompleted && (
+            <Badge className="text-xs bg-[#FF525220] text-[#FF5252] border-none">
+              Completed
+            </Badge>
+          )}
+        </div>
+        
         <motion.p
-          className={`text-sm ${isCompleted ? "text-[#AAAAAA] line-through" : "text-[#E0E0E0]"}`}
+          className={`text-xs ${isCompleted ? "text-[#777777] line-through" : "text-[#AAAAAA]"}`}
           animate={{
-            color: isCompleted ? "#AAAAAA" : "#E0E0E0",
+            color: isCompleted ? "#777777" : "#AAAAAA",
           }}
           transition={{ duration: 0.2 }}
         >
-          {topic.name}: {topic.description.substring(0, 60)}...
+          {shortDescription}
         </motion.p>
       </div>
     </motion.div>
