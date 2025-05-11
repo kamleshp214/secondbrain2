@@ -1,4 +1,4 @@
-# Second Brain - Study Planning Application
+# Knowledge Nexus - Second Brain Study Planning Application
 
 ## Description
 Second Brain is a comprehensive study planning and tracking application designed to help users organize their learning materials, track progress, and maintain focus during study sessions. The application provides a system for managing subjects and their units, tracking completion, and optimizing study time with features like a Pomodoro timer.
@@ -58,8 +58,8 @@ You can view a live demo of the Second Brain application [here](#).
 ### Steps
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/second-brain.git
-cd second-brain
+git clone https://github.com/kamleshp214/secondbrain.git
+cd secondbrain
 ```
 
 2. Install dependencies:
@@ -191,8 +191,12 @@ const containerVariants = {
 - Mobile app versions
 
 ## Contributors
-- Your Name - Developer
+- [Kamlesh Porwal](https://github.com/kamleshp214) - Developer
+
+## Connect
+- GitHub: [https://github.com/kamleshp214](https://github.com/kamleshp214)
+- LinkedIn: [https://www.linkedin.com/in/kamlesh-porwal-2b1a2a1a6/](https://www.linkedin.com/in/kamlesh-porwal-2b1a2a1a6/)
 
 ---
 
-Built with ❤️ using React and TypeScript
+Built with ❤️ by Kamlesh Porwal using React and TypeScript
