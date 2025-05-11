@@ -10,10 +10,22 @@ import { Label } from "@/components/ui/label";
 import { format } from "date-fns";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { 
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const FocusEnvironment = () => {
-  const { subjects, topics, addStudySession } = useApp();
+  const { subjects, topics, addStudySession, deleteStudySession } = useApp();
   const { toast } = useToast();
+  const [sessionToDelete, setSessionToDelete] = useState<string | null>(null);
   const [selectedSubject, setSelectedSubject] = useState("");
   const [selectedUnit, setSelectedUnit] = useState("");
   const [notes, setNotes] = useState("");
@@ -82,6 +94,54 @@ const FocusEnvironment = () => {
         title: "Session Saved",
         description: `You've completed a ${studyDuration} minute study session!`,
       });
+    });
+  };
+
+  // Handle session deletion
+  const handleDeleteSession = async () => {
+    if (sessionToDelete) {
+      await deleteStudySession(sessionToDelete);
+      setSavedSessions(prevSessions => prevSessions.filter(session => session.id !== sessionToDelete));
+      setSessionToDelete(null);
+      
+      toast({
+        title: "Session Deleted",
+        description: "The study session has been deleted successfully",
+      });
+    }
+  };
+  
+  // Download notes as text file
+  const downloadNotes = (sessionNotes: string, subjectName: string, date: Date) => {
+    if (!sessionNotes.trim()) {
+      toast({
+        title: "No Notes Available",
+        description: "This session doesn't have any notes to download",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    const formattedDate = format(date, "yyyy-MM-dd_HH-mm");
+    const fileName = `${subjectName.replace(/\s+/g, '_')}_Notes_${formattedDate}.txt`;
+    
+    const header = `Study Session Notes\n==================\nSubject: ${subjectName}\nDate: ${format(date, "MMM d, yyyy h:mm a")}\n\n`;
+    const content = header + sessionNotes;
+    
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    
+    toast({
+      title: "Notes Downloaded",
+      description: `Your notes have been saved as ${fileName}`,
     });
   };
 
@@ -263,6 +323,52 @@ const FocusEnvironment = () => {
                       {session.notes}
                     </div>
                   )}
+                  
+                  <div className="flex justify-end space-x-2 mt-2">
+                    {session.notes && (
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="text-xs px-2 py-1 h-auto bg-[#1E1E1E] hover:bg-[#333333] border-[#333333]"
+                        onClick={() => downloadNotes(session.notes, session.subject, session.date)}
+                      >
+                        <i className="ri-download-line mr-1"></i>
+                        Save Notes
+                      </Button>
+                    )}
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="text-xs px-2 py-1 h-auto bg-[#1E1E1E] hover:bg-[#333333] border-[#333333] text-[#FF5252]"
+                          onClick={() => setSessionToDelete(session.id)}
+                        >
+                          <i className="ri-delete-bin-line mr-1"></i>
+                          Delete
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent className="bg-[#252525] border-[#333333] text-[#E0E0E0]">
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Are you sure you want to delete this session?</AlertDialogTitle>
+                          <AlertDialogDescription className="text-[#AAAAAA]">
+                            This action cannot be undone. This will permanently delete your study session record.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel className="bg-[#333333] hover:bg-[#444444] text-[#E0E0E0] border-[#444444]">
+                            Cancel
+                          </AlertDialogCancel>
+                          <AlertDialogAction 
+                            className="bg-[#FF5252] hover:bg-[#D32F2F] text-white border-none"
+                            onClick={handleDeleteSession}
+                          >
+                            Delete
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  </div>
                 </motion.div>
               ))
             ) : (

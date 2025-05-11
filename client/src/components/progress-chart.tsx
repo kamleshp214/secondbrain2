@@ -39,9 +39,9 @@ const ProgressChart = () => {
   // Prepare data for pie chart
   const totalCompleted = subjects.reduce((sum, subject) => 
     sum + getCompletedTopicsCount(subject.id), 0);
-  const totalTopics = subjects.reduce((sum, subject) => 
+  const totalUnits = subjects.reduce((sum, subject) => 
     sum + getTotalTopicsCount(subject.id), 0);
-  const totalRemaining = totalTopics - totalCompleted;
+  const totalRemaining = totalUnits - totalCompleted;
   
   const pieData = [
     { name: 'Completed', value: totalCompleted },
@@ -55,7 +55,7 @@ const ProgressChart = () => {
       return (
         <div className="bg-[#252525] p-2 border border-[#333333] rounded-md shadow-lg text-sm">
           <p className="font-semibold">{`${label}`}</p>
-          <p>{`Completed: ${payload[0].payload.completed}/${payload[0].payload.total} topics`}</p>
+          <p>{`Completed: ${payload[0].payload.completed}/${payload[0].payload.total} units`}</p>
           <p>{`Progress: ${payload[0].value}%`}</p>
         </div>
       );
@@ -68,7 +68,7 @@ const ProgressChart = () => {
       return (
         <div className="bg-[#252525] p-2 border border-[#333333] rounded-md shadow-lg text-sm">
           <p className="font-semibold">{`${payload[0].name}`}</p>
-          <p>{`Topics: ${payload[0].value}`}</p>
+          <p>{`Units: ${payload[0].value}`}</p>
         </div>
       );
     }
@@ -111,8 +111,8 @@ const ProgressChart = () => {
       >
         <h3 className="font-medium mb-4">Overall Completion</h3>
         <div className="text-center">
-          <p className="text-lg font-semibold">{Math.round((totalCompleted / totalTopics) * 100)}% Complete</p>
-          <p className="text-sm text-[#AAAAAA]">{totalCompleted} of {totalTopics} topics completed</p>
+          <p className="text-lg font-semibold">{Math.round((totalCompleted / totalUnits) * 100)}% Complete</p>
+          <p className="text-sm text-[#AAAAAA]">{totalCompleted} of {totalUnits} units completed</p>
         </div>
         <ResponsiveContainer width="100%" height="70%">
           <PieChart>
