@@ -234,7 +234,7 @@ const Settings = () => {
                 <h3 className="text-sm font-medium text-[#E0E0E0] mb-2">Connect with the Developer:</h3>
                 <div className="flex space-x-3">
                   <a 
-                    href="https://github.com/yourusername" 
+                    href="https://github.com/kamleshp214" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="flex items-center px-3 py-2 bg-[#252525] rounded-md text-[#E0E0E0] hover:bg-[#333333] transition-colors text-sm"
@@ -243,7 +243,7 @@ const Settings = () => {
                     GitHub
                   </a>
                   <a 
-                    href="https://linkedin.com/in/yourprofile" 
+                    href="https://www.linkedin.com/in/kamlesh-porwal-2b1a2a1a6/" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="flex items-center px-3 py-2 bg-[#252525] rounded-md text-[#E0E0E0] hover:bg-[#333333] transition-colors text-sm"
