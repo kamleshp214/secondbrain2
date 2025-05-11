@@ -12,19 +12,19 @@ const Subjects = () => {
   const { subjects, topics, loading } = useApp();
 
   // Calculate total stats
-  const totalTopics = subjects.reduce(
+  const totalUnits = subjects.reduce(
     (total, subject) => total + useApp().getTotalTopicsCount(subject.id),
     0
   );
   
-  const completedTopics = subjects.reduce(
+  const completedUnits = subjects.reduce(
     (total, subject) => total + useApp().getCompletedTopicsCount(subject.id),
     0
   );
   
-  const completionPercentage = totalTopics === 0 
+  const completionPercentage = totalUnits === 0 
     ? 0 
-    : Math.round((completedTopics / totalTopics) * 100);
+    : Math.round((completedUnits / totalUnits) * 100);
 
   // Find the closest exam
   const upcomingExams = [...subjects]
@@ -74,7 +74,7 @@ const Subjects = () => {
             <Badge variant="outline" className="bg-[#FF525220] text-[#FF5252] mb-1 border-[#FF5252]">
               {completionPercentage}% Complete
             </Badge>
-            <p className="text-xs text-[#AAAAAA]">{completedTopics}/{totalTopics} topics</p>
+            <p className="text-xs text-[#AAAAAA]">{completedUnits}/{totalUnits} units</p>
           </div>
         </div>
       </motion.div>
@@ -131,7 +131,7 @@ const Subjects = () => {
             </div>
             <div className="flex items-center">
               <div className="w-3 h-3 rounded-full bg-[#666666] mr-1"></div>
-              <span className="text-[#AAAAAA]">{topics.length} Topics</span>
+              <span className="text-[#AAAAAA]">{topics.length} Units</span>
             </div>
           </div>
         </motion.div>
@@ -201,7 +201,7 @@ const Subjects = () => {
           <div className="bg-[#1E1E1E] rounded-xl p-5">
             <div className="flex justify-between items-center mb-4">
               <div>
-                <h3 className="font-medium text-[#E0E0E0]">Topics Completed</h3>
+                <h3 className="font-medium text-[#E0E0E0]">Units Completed</h3>
                 <p className="text-sm text-[#AAAAAA]">Your overall progress across all subjects</p>
               </div>
               <div className="text-right">
@@ -221,8 +221,8 @@ const Subjects = () => {
             </div>
             
             <div className="flex justify-between text-xs text-[#AAAAAA]">
-              <span>{completedTopics} completed</span>
-              <span>{totalTopics - completedTopics} remaining</span>
+              <span>{completedUnits} completed</span>
+              <span>{totalUnits - completedUnits} remaining</span>
             </div>
           </div>
         </motion.section>
