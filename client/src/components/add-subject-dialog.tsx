@@ -78,9 +78,8 @@ const AddSubjectDialog = () => {
         <motion.button
           className="w-full py-3 rounded-xl bg-[#FF5252] text-white font-semibold flex items-center justify-center shadow-lg"
           whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+          whileTap={{ scale: 0.98, boxShadow: "0 2px 8px rgba(255, 82, 82, 0.2)" }}
           initial={{ boxShadow: "0 4px 12px rgba(255, 82, 82, 0.3)" }}
-          whileTap={{ boxShadow: "0 2px 8px rgba(255, 82, 82, 0.2)" }}
         >
           <i className="ri-add-line mr-2"></i> Add New Subject
         </motion.button>

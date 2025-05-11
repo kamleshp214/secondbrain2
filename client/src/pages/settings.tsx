@@ -4,10 +4,15 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { Slider } from "@/components/ui/slider";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 
 const Settings = () => {
   const { toast } = useToast();
+  const [theme, setTheme] = useState("dark");
+  const [calendarView, setCalendarView] = useState("week");
 
   // Animation variants
   const containerVariants = {
@@ -47,51 +52,71 @@ const Settings = () => {
 
   return (
     <motion.div
-      className="min-h-screen pt-6"
+      className="min-h-screen pb-24"
       initial="hidden"
       animate="visible"
       exit="exit"
       variants={containerVariants}
     >
-      {/* Header */}
-      <motion.header 
-        className="px-5 mb-6 flex justify-between items-center"
+      {/* Header with gradient */}
+      <motion.div 
+        className="bg-gradient-to-b from-[#1E1E1E] to-[#121212] py-6 px-5 mb-6"
         variants={itemVariants}
       >
         <h1 className="text-2xl font-bold text-[#E0E0E0]">Settings</h1>
-      </motion.header>
+        <p className="text-[#AAAAAA] text-sm mt-1">
+          Customize your study experience
+        </p>
+      </motion.div>
 
       {/* Main Content */}
       <main className="px-5">
         <motion.div variants={itemVariants}>
           <Card className="bg-[#1E1E1E] border-[#333333] mb-6">
             <CardHeader>
-              <CardTitle className="text-[#E0E0E0]">Notifications</CardTitle>
-              <CardDescription className="text-[#AAAAAA]">Configure how you want to be reminded</CardDescription>
+              <CardTitle className="text-[#E0E0E0] flex items-center">
+                <i className="ri-focus-2-line text-[#FF5252] mr-2"></i>
+                Study Focus
+              </CardTitle>
+              <CardDescription className="text-[#AAAAAA]">Configure your study environment</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center justify-between">
-                <Label htmlFor="study-reminders" className="flex flex-col space-y-1">
-                  <span>Study Reminders</span>
-                  <span className="font-normal text-xs text-[#AAAAAA]">Receive notifications before scheduled sessions</span>
-                </Label>
-                <Switch id="study-reminders" defaultChecked />
+            <CardContent className="space-y-6">
+              <div className="space-y-2">
+                <Label>Focus Session Length</Label>
+                <div className="flex items-center space-x-3">
+                  <Slider
+                    defaultValue={[25]}
+                    max={60}
+                    min={5}
+                    step={5}
+                    className="flex-1"
+                  />
+                  <span className="text-sm">25 min</span>
+                </div>
+                <p className="text-xs text-[#AAAAAA]">Length of your focus periods in the Pomodoro timer</p>
+              </div>
+              
+              <div className="space-y-2">
+                <Label>Break Length</Label>
+                <div className="flex items-center space-x-3">
+                  <Slider
+                    defaultValue={[5]}
+                    max={20}
+                    min={1}
+                    step={1}
+                    className="flex-1"
+                  />
+                  <span className="text-sm">5 min</span>
+                </div>
+                <p className="text-xs text-[#AAAAAA]">Length of your break periods in the Pomodoro timer</p>
               </div>
               
               <div className="flex items-center justify-between">
-                <Label htmlFor="exam-alerts" className="flex flex-col space-y-1">
-                  <span>Exam Alerts</span>
-                  <span className="font-normal text-xs text-[#AAAAAA]">Get warnings when exams are approaching</span>
+                <Label htmlFor="auto-start-breaks" className="flex flex-col space-y-1">
+                  <span>Auto-start Breaks</span>
+                  <span className="font-normal text-xs text-[#AAAAAA]">Automatically start breaks after focus sessions</span>
                 </Label>
-                <Switch id="exam-alerts" defaultChecked />
-              </div>
-              
-              <div className="flex items-center justify-between">
-                <Label htmlFor="progress-updates" className="flex flex-col space-y-1">
-                  <span>Progress Updates</span>
-                  <span className="font-normal text-xs text-[#AAAAAA]">Weekly summary of your study progress</span>
-                </Label>
-                <Switch id="progress-updates" />
+                <Switch id="auto-start-breaks" defaultChecked />
               </div>
             </CardContent>
           </Card>
@@ -100,13 +125,70 @@ const Settings = () => {
         <motion.div variants={itemVariants}>
           <Card className="bg-[#1E1E1E] border-[#333333] mb-6">
             <CardHeader>
-              <CardTitle className="text-[#E0E0E0]">Data Management</CardTitle>
+              <CardTitle className="text-[#E0E0E0] flex items-center">
+                <i className="ri-user-settings-line text-[#FF5252] mr-2"></i>
+                Preferences
+              </CardTitle>
+              <CardDescription className="text-[#AAAAAA]">Customize your experience</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="space-y-2">
+                <Label htmlFor="calendar-view">Default Calendar View</Label>
+                <Select 
+                  value={calendarView} 
+                  onValueChange={setCalendarView}
+                >
+                  <SelectTrigger id="calendar-view" className="bg-[#252525] border-[#333333] text-[#E0E0E0] w-full">
+                    <SelectValue placeholder="Select view" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-[#252525] border-[#333333] text-[#E0E0E0]">
+                    <SelectItem value="day">Day</SelectItem>
+                    <SelectItem value="week">Week</SelectItem>
+                    <SelectItem value="month">Month</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="theme">App Theme</Label>
+                <Select 
+                  value={theme} 
+                  onValueChange={setTheme}
+                >
+                  <SelectTrigger id="theme" className="bg-[#252525] border-[#333333] text-[#E0E0E0] w-full">
+                    <SelectValue placeholder="Select theme" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-[#252525] border-[#333333] text-[#E0E0E0]">
+                    <SelectItem value="dark">Dark</SelectItem>
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-[#AAAAAA]">Currently only dark theme is available</p>
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <Label htmlFor="auto-archive" className="flex flex-col space-y-1">
+                  <span>Auto-archive Completed Sessions</span>
+                  <span className="font-normal text-xs text-[#AAAAAA]">Automatically archive sessions after completion</span>
+                </Label>
+                <Switch id="auto-archive" />
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        <motion.div variants={itemVariants}>
+          <Card className="bg-[#1E1E1E] border-[#333333] mb-6">
+            <CardHeader>
+              <CardTitle className="text-[#E0E0E0] flex items-center">
+                <i className="ri-database-2-line text-[#FF5252] mr-2"></i>
+                Data Management
+              </CardTitle>
               <CardDescription className="text-[#AAAAAA]">Export or clear your study data</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <Button 
                 variant="outline" 
-                className="w-full bg-[#252525] border-[#333333] text-[#E0E0E0]"
+                className="w-full bg-[#252525] border-[#333333] text-[#E0E0E0] hover:bg-[#333333]"
                 onClick={handleBackupData}
               >
                 <i className="ri-download-line mr-2"></i>
@@ -130,13 +212,25 @@ const Settings = () => {
         <motion.div variants={itemVariants}>
           <Card className="bg-[#1E1E1E] border-[#333333]">
             <CardHeader>
-              <CardTitle className="text-[#E0E0E0]">About</CardTitle>
+              <CardTitle className="text-[#E0E0E0] flex items-center">
+                <i className="ri-information-line text-[#FF5252] mr-2"></i>
+                About
+              </CardTitle>
               <CardDescription className="text-[#AAAAAA]">Application information</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-2">
-              <p className="text-sm text-[#AAAAAA]">Second Brain v1.0.0</p>
+            <CardContent className="space-y-3">
+              <div className="flex items-center mb-2">
+                <div className="w-10 h-10 bg-[#FF5252] rounded-lg flex items-center justify-center mr-3">
+                  <i className="ri-brain-line text-white text-xl"></i>
+                </div>
+                <div>
+                  <h3 className="font-medium text-[#E0E0E0]">Second Brain</h3>
+                  <p className="text-xs text-[#AAAAAA]">v1.0.0</p>
+                </div>
+              </div>
               <p className="text-sm text-[#AAAAAA]">A client-side study planning application</p>
               <p className="text-sm text-[#AAAAAA]">All data is stored locally on your device</p>
+              <p className="text-sm text-[#AAAAAA] mt-2">Built with React, Framer Motion, and Dexie.js</p>
             </CardContent>
           </Card>
         </motion.div>
