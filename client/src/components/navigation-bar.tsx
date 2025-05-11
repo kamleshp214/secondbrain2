@@ -37,11 +37,11 @@ const NavigationBar = () => {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-[#1E1E1E] border-t border-[#333333] p-2 flex justify-around items-center z-50">
+    <nav className="fixed bottom-0 left-0 right-0 bg-[#1E1E1E] border-t border-[#333333] p-2 pb-safe flex justify-around items-center z-50 shadow-lg">
       {navItems.map((item) => (
         <button
           key={item.name}
-          className={`flex flex-col items-center py-1 px-3 ${
+          className={`flex flex-col items-center py-2 px-4 touch-manipulation ${
             item.active ? "text-[#FF5252]" : "text-[#AAAAAA]"
           }`}
           onClick={() => setLocation(item.path)}

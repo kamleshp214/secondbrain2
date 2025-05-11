@@ -33,7 +33,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <AppProvider>
-          <div className="bg-neural min-h-screen pb-20">
+          <div className="bg-neural min-h-screen pb-24 pt-safe px-safe overflow-x-hidden">
             <Toaster />
             <Router />
             <NavigationBar />

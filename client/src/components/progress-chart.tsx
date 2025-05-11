@@ -76,7 +76,7 @@ const ProgressChart = () => {
   };
 
   return (
-    <div className="space-y-6 md:px-2 sm:px-0 max-w-full">
+    <div className="space-y-6 px-1 md:px-2 max-w-full overflow-hidden">
       <motion.div 
         className="bg-[#1E1E1E] rounded-xl p-4 h-80 overflow-x-auto"
         initial={{ opacity: 0, y: 20 }}
@@ -84,13 +84,13 @@ const ProgressChart = () => {
         transition={{ duration: 0.5 }}
       >
         <h3 className="font-medium mb-4">Progress by Subject</h3>
-        <ResponsiveContainer width="100%" height="85%" minWidth={300}>
+        <ResponsiveContainer width="100%" height="85%" minWidth={250}>
           <BarChart
             data={barData}
-            margin={{ top: 10, right: 20, left: 0, bottom: 5 }}
+            margin={{ top: 10, right: 20, left: -15, bottom: 5 }}
           >
-            <XAxis dataKey="name" stroke="#AAAAAA" />
-            <YAxis stroke="#AAAAAA" domain={[0, 100]} tickFormatter={(tick) => `${tick}%`} />
+            <XAxis dataKey="name" stroke="#AAAAAA" tick={{fontSize: 12}} />
+            <YAxis stroke="#AAAAAA" domain={[0, 100]} tickFormatter={(tick) => `${tick}%`} tick={{fontSize: 12}} width={40} />
             <Tooltip content={<CustomTooltip />} />
             <Bar 
               dataKey="progress" 
@@ -114,14 +114,14 @@ const ProgressChart = () => {
           <p className="text-lg font-semibold">{Math.round((totalCompleted / totalUnits) * 100)}% Complete</p>
           <p className="text-sm text-[#AAAAAA]">{totalCompleted} of {totalUnits} units completed</p>
         </div>
-        <ResponsiveContainer width="100%" height="70%" minWidth={250}>
+        <ResponsiveContainer width="100%" height="70%" minWidth={200}>
           <PieChart>
             <Pie
               data={pieData}
               cx="50%"
               cy="50%"
               innerRadius={60}
-              outerRadius={80}
+              outerRadius="70%"
               paddingAngle={5}
               dataKey="value"
               animationBegin={500}

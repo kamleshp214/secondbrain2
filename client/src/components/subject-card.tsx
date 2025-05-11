@@ -41,11 +41,11 @@ const SubjectCard = ({ subject }: SubjectCardProps) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="p-4">
-        <div className="flex justify-between items-start mb-3">
+      <div className="p-3 sm:p-4">
+        <div className="flex justify-between items-start mb-2 sm:mb-3">
           <div>
-            <h2 className="font-bold text-lg">{subject.name}</h2>
-            <p className="text-sm text-[#AAAAAA]">Exam: {formattedExamDate}</p>
+            <h2 className="font-bold text-base sm:text-lg break-words max-w-[200px] sm:max-w-none">{subject.name}</h2>
+            <p className="text-xs sm:text-sm text-[#AAAAAA]">Exam: {formattedExamDate}</p>
             <p className="text-xs text-[#FF5252]">{timeUntilExam}</p>
           </div>
           <motion.button

@@ -60,12 +60,12 @@ const Subjects = () => {
     >
       {/* Header with gradient */}
       <motion.div 
-        className="bg-gradient-to-b from-[#1E1E1E] to-[#121212] py-6 px-5 mb-6"
+        className="bg-gradient-to-b from-[#1E1E1E] to-[#121212] py-4 sm:py-6 px-4 sm:px-5 mb-4 sm:mb-6"
         variants={itemVariants}
       >
-        <div className="flex justify-between items-start">
+        <div className="flex flex-wrap justify-between items-start gap-2">
           <div>
-            <h1 className="text-2xl font-bold text-[#E0E0E0]">Second Brain</h1>
+            <h1 className="text-xl sm:text-2xl font-bold text-[#E0E0E0]">Second Brain</h1>
             <p className="text-[#AAAAAA] text-sm mt-1">
               Your personal study companion
             </p>
@@ -80,7 +80,7 @@ const Subjects = () => {
       </motion.div>
 
       {/* Main Content */}
-      <main className="px-5">
+      <main className="px-3 sm:px-5">
         {/* Reminders */}
         <Reminders />
         
